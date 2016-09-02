@@ -1,0 +1,60 @@
+This directory contains the following files:
+
+    - CONTENTS
+	: this file 
+
+    - README
+	: read carefully before doing experiment
+
+    - install.sh
+   
+    - runJPF.sh
+
+1. install.sh <application directory>
+
+   <application directory> : orig
+
+   Example:
+
+   %install.sh orig
+
+
+   Tasks done by this script:
+
+       - Removes all previous files in ~/source directory
+
+       - Removes all previous files in ~/outputs directory
+
+       - Copies Java source files to ~/source directory
+
+       - Compiles the Java source files
+
+2. runJPF.sh <application directory> <search type> <number of runs>
+
+   <application directory> : orig
+
+   <search type> : defaut or random
+
+   <number of runs> : (optional - ignored unless a random search order
+                      is specified) the number of times JPF is invoked; 
+                      default is 1
+
+   Example:
+
+   %runJPF.sh orig random 10
+
+   Tasks done by this script:
+
+       - Runs the Java PathFinder model checker on the code in the 'orig'
+         directory structure 10 times using the random search order
+       - Generates a new seed for each run of JPF. 
+       - Names the resulting log file using the generated seed.
+
+   Example:
+
+   %runJPF.sh orig default
+
+   Tasks done by this script:
+
+       - Runs the Java PathFinder model checker on the code in the 'orig'
+         directory structure using the default search order

@@ -1,0 +1,29 @@
+Before you start an experiment, you should complete steps 1 and 2:
+
+1. Set the environment variable experiment_root to point to the parent 
+directory of the subject directory by typing
+"setenv experiment_root <path>"
+
+   For example, assume you have a subject directory "airline" and you 
+locate it under /cs_machine/exp_group/experiments, then you would set 
+experiment_root by executing the command:
+
+        setenv experiment_root /cs_machine/exp_group/experiments
+
+2. If you plan to model check the airline example using 
+Java PathFinder (JPF), set the environment variable jpf_root to point
+to the root directory of the JPF installation.
+
+   For example, assuming you have installed JPF  at
+/usr/tools/javapathfinder, then you would set jpf_root by executing
+the command:
+
+        setenv jpf_root /usr/tools/javapathfinder
+
+Notes
+1. The version of JPF against which this example was tested requires
+the use of JDK Version 1.6.
+2. The runJPF shell script can be modified to use the expect tool to limit
+the amount of time JPF will spend searching the state space. This is useful
+for programs with a large statespace. Refer to the runJPF.sh script for
+details (shown in the random run sections).

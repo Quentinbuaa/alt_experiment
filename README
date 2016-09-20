@@ -1,29 +1,8 @@
-Before you start an experiment, you should complete steps 1 and 2:
+Usage write in 2016 09 18
 
-1. Set the environment variable experiment_root to point to the parent 
-directory of the subject directory by typing
-"setenv experiment_root <path>"
+there are 3 key files in the directory: 
+1. run.sh used to run the bug program. Writing this to seperate script is for that the Java classpath can't be configurated correctly and I loose patient to find out a clean way. In this method, the Java is running in the user's environment, so that the user's java_home and classpath can be used correctly.
+2. cgroup_set.sh is use to set the cgroup environment. This is write specially is because it have to use the root user to set the cgroup environment. SoI have to write is seperately.
+3. the memory_test.sh is used to control the whole test. So, in order to run the whole program, all need to do is ./memory_test.sh. 
+This scripts contains three parts. The first part is for the data directory set up. The second part is for the configuration of cgroup. In this part, all we have to do to call the script of cgroup_set.sh. After the testing environment is ready, the third part, we can run our program with command cgexec.This command have to use sudo. Then the run.sh's output's owner is root. The monitor switch also belongs to this part. I implement the monitor part with a simple function instead of scripts. 
 
-   For example, assume you have a subject directory "airline" and you 
-locate it under /cs_machine/exp_group/experiments, then you would set 
-experiment_root by executing the command:
-
-        setenv experiment_root /cs_machine/exp_group/experiments
-
-2. If you plan to model check the airline example using 
-Java PathFinder (JPF), set the environment variable jpf_root to point
-to the root directory of the JPF installation.
-
-   For example, assuming you have installed JPF  at
-/usr/tools/javapathfinder, then you would set jpf_root by executing
-the command:
-
-        setenv jpf_root /usr/tools/javapathfinder
-
-Notes
-1. The version of JPF against which this example was tested requires
-the use of JDK Version 1.6.
-2. The runJPF shell script can be modified to use the expect tool to limit
-the amount of time JPF will spend searching the state space. This is useful
-for programs with a large statespace. Refer to the runJPF.sh script for
-details (shown in the random run sections).

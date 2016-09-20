@@ -9,7 +9,26 @@ clean_up(){
 		rmdir mnt
 }
 
-do_mount(){
+do_cpu_mount(){
+		if [ -d mnt ];then 
+				clean_up
+		fi
+		mkdir mnt
+		mount -t cgroup -o cpu cgroup mnt
+		if [ $? -ne 0 ];then
+				echo "fail to mount cgroup/memory"
+				rmdir mnt
+				exit 1
+		fi
+
+		cd mnt
+		if [ -d airline ]; then
+				rmdir airline
+		fi
+		mkdir airline
+		cd airline
+}
+do_memory_mount(){
 		if [ -d mnt ];then 
 				clean_up
 		fi

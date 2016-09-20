@@ -19,12 +19,14 @@ cgexec_airline(){
 }
 
 
-# monitor the number of times that the memory limit has reached the vaule set in memory.limit_in_bytes
+# monitor the number of times that the memory limit has reached the vaule set in memory.limit_in_bytes and maximum usage in bytes
 # $1 is used to identify the memory hit
-monitor_hit_times(){
+monitor(){
+
 		echo $1 >> $AIRLINE_HOME/data/hit_time.log
 		cd $CGROUP_AIRLINE
 		cat memory.failcnt | tee -a $AIRLINE_HOME/data/hit_time.log 
+		cat memory.max_usage_in_bytes | tee -a $AIRLINE_HOME/data/hit_time.log 
 }
 
 main(){
@@ -35,7 +37,7 @@ main(){
 
 		#test memory setup
 		cd $AIRLINE_HOME/scripts
-		mem_lim=100M
+		mem_lim=200M
 		set_test_env $mem_lim
 
 		#test execution
@@ -44,7 +46,8 @@ main(){
 		do
 				# execute airline
 			cgexec_airline
-			monitor_hit_times $mem_lim
+			monitor $mem_lim
+			sleep 3
 		done
 }
 
